@@ -21,17 +21,21 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    .stButton > button {
-        background-color: #1E6FB9 !important;
-        border: 1px solid #1E6FB9 !important;
-        color: white !important;
-        font-weight: 600 !important;
+    .stButton > button,
+div[data-testid="stButton"] > button,
+button[kind="primary"] {
+    background-color: #1E6FB9 !important;
+    border-color: #1E6FB9 !important;
+    color: white !important;
+    font-weight: 600 !important;
     }
 
-    .stButton > button:hover {
-        background-color: #165A96 !important;
-        border-color: #165A96 !important;
-        color: white !important;
+    .stButton > button:hover,
+div[data-testid="stButton"] > button:hover,
+button[kind="primary"]:hover {
+    background-color: #165A96 !important;
+    border-color: #165A96 !important;
+    color: white !important;
     }
 
 /* Mobile layout */
