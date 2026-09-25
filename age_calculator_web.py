@@ -14,7 +14,50 @@ st.set_page_config(
     layout="centered"
 )
 
+# ============================================================
+# CUSTOM STYLE
+# ============================================================
 
+st.markdown(
+    """
+    <style>
+    .stButton > button,
+div[data-testid="stButton"] > button,
+button[kind="primary"] {
+    background-color: #1E6FB9 !important;
+    border-color: #1E6FB9 !important;
+    color: white !important;
+    font-weight: 600 !important;
+    }
+
+    .stButton > button:hover,
+div[data-testid="stButton"] > button:hover,
+button[kind="primary"]:hover {
+    background-color: #165A96 !important;
+    border-color: #165A96 !important;
+    color: white !important;
+    }
+
+/* Mobile layout */
+@media (max-width: 600px) {
+     h3 {
+    font-size: 24px !important;
+     }
+    .block-container {
+        padding-left: 18px !important;
+        padding-right: 18px !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    html, body {
+        overflow-x: hidden !important;
+    }
+}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 # ============================================================
 # CHARACTER SELECTION
 # ============================================================
@@ -134,23 +177,26 @@ if st.button(
             f"Welcome, {name}!"
         )
 
-        st.subheader("Your Exact Age")
+        st.subheader("🎈 Your Exact Age")
 
-        col1, col2, col3 = st.columns(3)
-
-        col1.metric(
-            "Years",
-            age.years
-        )
-
-        col2.metric(
-            "Months",
-            age.months
-        )
-
-        col3.metric(
-            "Days",
-            age.days
+        st.markdown(
+            f"""
+<div style="display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:6px; width:100%; box-sizing:border-box; margin-bottom:20px;">
+    <div style="flex:1; min-width:0; text-align:center; border:1px solid #D9E5F1; border-radius:12px; padding:12px 4px;">
+        <div style="font-size:30px; font-weight:700; color:#123A67;">{age.years}</div>
+        <div style="font-size:13px; color:#536273;">Years</div>
+    </div>
+    <div style="flex:1; min-width:0; text-align:center; border:1px solid #D9E5F1; border-radius:12px; padding:12px 4px;">
+        <div style="font-size:30px; font-weight:700; color:#123A67;">{age.months}</div>
+        <div style="font-size:13px; color:#536273;">Months</div>
+    </div>
+    <div style="flex:1; min-width:0; text-align:center; border:1px solid #D9E5F1; border-radius:12px; padding:12px 4px;">
+        <div style="font-size:30px; font-weight:700; color:#123A67;">{age.days}</div>
+        <div style="font-size:13px; color:#536273;">Days</div>
+    </div>
+</div>
+""",
+            unsafe_allow_html=True
         )
 
 
@@ -172,7 +218,19 @@ if st.button(
 
             st.image(
                 image_path,
-                width=210
+                width=160
+            )
+
+            st.markdown(
+                """
+                <style>
+                div[data-testid="stImage"] {
+                    margin-top: -10px;
+                    margin-bottom: -25px;
+                }
+                </style>
+                """,
+                unsafe_allow_html=True
             )
 
 
@@ -206,6 +264,33 @@ if st.button(
                 f"{days_remaining} days remaining until your next birthday."
             )
 
+        # ====================================================
+        # BIRTHDAY PROGRESS
+        # ====================================================
+
+        previous_birthday = next_birthday.replace(
+            year=next_birthday.year - 1
+        )
+
+        total_days = (
+            next_birthday - previous_birthday
+        ).days
+
+        days_passed = (
+            today - previous_birthday
+        ).days
+
+        progress = days_passed / total_days
+
+        st.subheader("🥳 Journey to Your Next Birthday")
+
+        st.progress(progress)
+
+        percentage = round(progress * 100)
+
+        st.write(
+            f"{percentage}% of the journey to your next birthday completed"
+        )
 
     except ValueError:
 
