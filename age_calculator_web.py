@@ -53,6 +53,11 @@ button[kind="primary"]:hover {
     html, body {
         overflow-x: hidden !important;
     }
+    div[data-testid="stImage"] img {
+    width: 160px !important;
+    max-width: 160px !important;
+    height: auto !important;
+    }
 }
     </style>
     """,
@@ -218,20 +223,10 @@ if st.button(
 
             st.image(
                 image_path,
-                width=160
+                width="content"
             )
 
-            st.markdown(
-                """
-                <style>
-                div[data-testid="stImage"] {
-                    margin-top: -10px;
-                    margin-bottom: -25px;
-                }
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
+            
 
 
         # ====================================================
