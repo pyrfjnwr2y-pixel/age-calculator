@@ -215,7 +215,7 @@ if st.button(
         )
 
         image_path = os.path.join(
-            "images",
+            "Images",
             character_file
         )
 
